@@ -1,0 +1,56 @@
+# change python alias from python3 to python
+sudo apt update
+sudo apt install python-is-python3
+
+#install latest python version
+sudo apt update
+sudo apt upgrade
+
+#check the version
+python --version
+
+#create a virtual enviroment to separate dependencies
+python -m venv venv
+
+#create first program
+touch main.python
+
+#install package for venv
+sudo apt update
+sudo 
+
+
+#installpython 3.14.5 from source
+sudo apt update
+
+sudo apt install -y build-essential wget \
+libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev \
+libncurses-dev libgdbm-dev \
+liblzma-dev tk-dev libffi-dev
+
+cd /tmp
+
+wget https://www.python.org/ftp/python/3.14.5/Python-3.14.5.tgz
+
+tar -xzf Python-3.14.5.tgz
+
+cd Python-3.14.5
+
+./configure --enable-optimizations
+
+make -j$(nproc)
+
+sudo make altinstall
+
+
+#create a virtual enviroment with the new sourced python version
+cd "/run/media/awongo-fahadi-rashid/AFRAH/Projects/Recess Term/Lectures/Day1"
+
+rm -rf venv
+
+/usr/local/bin/python3.14 -m venv venv
+
+source venv/bin/activate
+
+python --version
