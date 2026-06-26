@@ -35,6 +35,7 @@ EXTENSION_MAP = {
     "Archives": [".zip", ".rar", ".7z", ".tar", ".gz"],
     "Scripts": [".py", ".js", ".sh", ".bat", ".ps1"],
     "Code": [".java", ".c", ".cpp", ".cs", ".html", ".css", ".php", ".rb"],
+    "Others": []  # Catch-all category for unrecognized extensions
 }
 
 
