@@ -1,0 +1,19 @@
+Classification - Predicting Customer Churn (Will the customer leave?)
+
+Goal: Predict whether a customer will churn (Yes=1) or not (No=0).
+
+Model: Logistic Regression (Predicts the probability of a binary outcome).
+
+create sample data
+
+data = {
+
+ 'MonthlyCharge': [50, 80, 70, 40, 90, 60, 100, 85, 45, 75],
+
+ 'ContractLength': [12, 6, 24, 12, 3, 18, 24, 6, 12, 18],
+
+ 'Age': [30, 25, 40, 35, 28, 50, 45, 32, 29, 55],
+
+ 'Churn': [0, 1, 0, 0, 1, 0, 0, 1, 0, 0] # 0 = No Churn, 1 = Churn
+
+}
