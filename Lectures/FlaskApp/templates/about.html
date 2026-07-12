@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | My Shopping Website</title>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>About Us</h1>
+{% extends 'base.html' %}
+
+{% block title %}About Us | My App{% endblock %}
+
+{% block content %}
+<div class="about-container">
+    <div class="about-card">
+        <div class="about-header">
+            <h2>About Our Company</h2>
+            <p>Learn more about our mission, vision, and values</p>
         </div>
-        <div class="content">
-            <p>Welcome to our shopping website! We are dedicated to providing the best products and customer service.</p>
+        <div class="about-content">
+            <p>Our company is dedicated to providing the best shopping experience for our customers. We
+    strive to offer a wide range of products, exceptional customer service, and a seamless online shopping platform.</p>
+            <p>Founded in 2020, we have quickly grown to become a trusted name in the e-commerce industry. Our team is passionate about delivering quality products and ensuring customer satisfaction.</p>
+            <p>We believe in innovation, integrity, and community engagement. Join us on our journey as we continue to expand and improve our services.</p>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

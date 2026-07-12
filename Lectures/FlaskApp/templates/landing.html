@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome | ShopCentral{% endblock %}
+
+{% block content %}
+<div class="landing-wrapper">
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <span class="badge">New Season Arrivals</span>
+            <h1>Your One-Stop Shop For All Your Needs</h1>
+            <p class="hero-subtitle">Discover a wide range of premium products, from cutting-edge electronics to trendsetting fashion—all curated in one place for you.</p>
+            
+            <div class="hero-actions">
+                <a href="/login" class="btn-primary-lg">Start Shopping Journey</a>
+                <a href="#features" class="btn-secondary-lg">Learn More</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Value Features Grid -->
+    <section id="features" class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Fast Delivery</h3>
+            <p>Enjoy blazing fast shipping options right to your doorstep with real-time tracking.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Secure Checkout</h3>
+            <p>Your transactions are fully encrypted using top-tier industry security protocols.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">✨</div>
+            <h3>Premium Quality</h3>
+            <p>Every single brand and product in our catalog undergoes rigorous authenticity verification.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}

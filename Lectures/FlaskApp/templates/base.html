@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Shopping Website{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/script.js" defer></script>
 </head>
 <body>
+
     <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/profile">Profile</a>
+        <!-- Global navigation bar content goes here -->
     </nav>
-    <main>
+
+    <main class="container">
+        <!-- This is where your login page content will be injected -->
         {% block content %}
         {% endblock %}
     </main>
+
 </body>
 </html>
