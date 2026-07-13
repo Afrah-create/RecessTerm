@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Student Information System{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <span class="badge">
+            Student Management Platform
+        </span>
+
+        <h1>
+            Manage Student Records
+            <span>Smarter & Faster</span>
+        </h1>
+
+        <p>
+            A modern platform for registering, organizing and managing
+            student information with speed, accuracy and simplicity.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">
+                Register Student
+            </a>
+
+            <a href="{{ url_for('students_list') }}" class="btn btn-outline">
+                View Students
+            </a>
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <div class="stats-card">
+
+            <div class="stat-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+
+            <div>
+                <h2>{{ total_students }}</h2>
+                <p>Total Registered Students</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="features">
+
+    <div class="feature-card">
+
+        <div class="feature-icon blue">
+            <i class="fas fa-user-plus"></i>
+        </div>
+
+        <h3>Easy Registration</h3>
+
+        <p>
+            Register students quickly through a clean and intuitive interface.
+        </p>
+
+    </div>
+
+
+    <div class="feature-card">
+
+        <div class="feature-icon green">
+            <i class="fas fa-address-book"></i>
+        </div>
+
+        <h3>Student Management</h3>
+
+        <p>
+            Maintain accurate student information and keep records organized.
+        </p>
+
+    </div>
+
+
+    <div class="feature-card">
+
+        <div class="feature-icon orange">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <h3>Quick Search</h3>
+
+        <p>
+            Locate student records instantly using powerful search features.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}
