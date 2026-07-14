@@ -49,3 +49,26 @@ class Course(db.Model):
             'course_code': self.course_code,
             'course_weight': self.course_weight
         }
+    
+
+
+class Enrollment(db.Model):
+    __tablename__ = 'enrollments'
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
+    enrollment_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    student = db.relationship('Student', backref=db.backref('enrollments', lazy=True))
+    course = db.relationship('Course', backref=db.backref('enrollments', lazy=True))
+    
+    def __repr__(self):
+        return f'<Enrollment Student ID: {self.student_id}, Course ID: {self.course_id}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'student_id': self.student_id,
+            'course_id': self.course_id,
+            'enrollment_date': self.enrollment_date.strftime('%Y-%m-%d %H:%M:%S')
+        }

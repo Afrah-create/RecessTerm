@@ -1,7 +1,7 @@
 # app.py - Main Application
 from flask import Flask, render_template, request, redirect, url_for, flash  # type: ignore
-from database import init_db, add_student, get_all_students, get_student_by_name, add_course, get_all_courses, edit_course, delete_course
-from models import db, Student, Course
+from database import enroll_student_in_course, init_db, add_student, get_all_students, get_student_by_name, add_course, get_all_courses, edit_course, delete_course, enroll_student_in_course, get_enrollments
+from models import Enrollment, db, Student, Course
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'
@@ -183,5 +183,31 @@ def delete_course(course_id):
 
     return redirect(url_for('course_list'))
 
+
+# Student enrollment route
+@app.route('/enroll', methods=['GET', 'POST'])
+def enroll_student():
+    if request.method == 'POST':
+        student_id = request.form.get('student_id')
+        course_id = request.form.get('course_id')
+
+        success, message = enroll_student_in_course(student_id, course_id)
+
+        if success:
+            flash(message, 'success')
+            return redirect(url_for('enrollments_list'))
+        else:
+            flash(message, 'error')
+
+    students = get_all_students()
+    courses = get_all_courses()
+    return render_template('enroll_student.html', students=students, courses=courses)
+
+
+# Enrollment list route
+@app.route('/enrollments')
+def enrollments_list():
+    enrollments = Enrollment.query.all()
+    return render_template('enrollments_list.html', enrollments=enrollments)
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

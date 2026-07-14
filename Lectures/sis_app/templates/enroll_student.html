@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Enroll Student - Student Information System{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='enroll.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="enroll-student-page">
+    <div class="enroll-student-card">
+        <div class="card-header">
+            <h2>Enroll Student in Course</h2>
+            <p>Select a student and a course to enroll the student in.</p>
+        </div>
+        <form method="POST" action="{{ url_for('enroll_student') }}">
+            <div class="form-body">
+                <div class="form-group">
+                    <label for="student_id">Select Student</label>
+                    <select id="student_id" name="student_id" required>
+                        <option value="">-- Select a Student --</option>
+                        {% for student in students %}
+                            <option value="{{ student.id }}">{{ student.student_name }} ({{ student.registration_number }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="course_id">Select Course</label>
+                    <select id="course_id" name="course_id" required>
+                        <option value="">-- Select a Course --</option>
+                        {% for course in courses %}
+                            <option value="{{ course.id }}">{{ course.course_name }} ({{ course.course_code }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Enroll Student</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

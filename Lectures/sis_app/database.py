@@ -1,6 +1,6 @@
 # database.py - Database Operations
 from flask_sqlalchemy import SQLAlchemy  # pyright: ignore[reportMissingImports]
-from models import db, Student, Course
+from models import Enrollment, db, Student, Course
 
 def init_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
@@ -192,3 +192,29 @@ def delete_course(course_id):
     except Exception as e:
         db.session.rollback()
         return False, f"Database error: {str(e)}"
+    
+def enroll_student_in_course(student_id, course_id):
+    try:
+        student = Student.query.get(student_id)
+        course = Course.query.get(course_id)
+        
+        if not student or not course:
+            return False, "Student or Course not found!"
+        
+        existing_enrollment = Enrollment.query.filter_by(student_id=student_id, course_id=course_id).first()
+        if existing_enrollment:
+            return False, "Student is already enrolled in this course!"
+        
+        new_enrollment = Enrollment(student_id=student_id, course_id=course_id)
+        db.session.add(new_enrollment)
+        db.session.commit()
+        
+        return True, "Student enrolled successfully!"
+    
+    except Exception as e:
+        db.session.rollback()
+        return False, f"Database error: {str(e)}"
+    
+
+def get_enrollments():
+    return Enrollment.query.all()

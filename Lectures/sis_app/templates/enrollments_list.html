@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Enroll Student - Student Information System{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='enroll.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="enrollments-list-page">
+    <div class="enrollments-list-card">
+         <div class="list-header">
+            <h2>Enrollment List</h2>
+            <div class="list-actions">
+                <a href="{{ url_for('enroll_student') }}" class="btn btn-primary">+ Enroll New Student</a>
+            </div>
+        </div>
+       
+        <div class="enrollments-table-container">
+            <table class="enrollments-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Registration Number</th>
+                        <th>Course Name</th>
+                        <th>Course Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for enrollment in enrollments %}
+                    <tr>
+                        <td data-label="Student Name">{{ enrollment.student.student_name }}</td>
+                        <td data-label="Registration Number">{{ enrollment.student.registration_number }}</td>
+                        <td data-label="Course Name">{{ enrollment.course.course_name }}</td>
+                        <td data-label="Course Code">{{ enrollment.course.course_code }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
