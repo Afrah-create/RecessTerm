@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmation - Student Information System{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='confirmation.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="confirmation-page">
+        <h2>✅ Course Registration Confirmation</h2>
+        <div class="confirmation-card">
+            <div class="confirmation-header">
+                <h3>Course Registered Successfully!</h3>
+                <p>Course information has been saved to the database.</p>
+            </div>
+
+            <div class="student-details">
+                <div class="detail-item">
+                    <span class="detail-label">Course Name:</span>
+                    <span class="detail-value">{{ course.course_name }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Course Code:</span>
+                    <span class="detail-value">{{ course.course_code }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Course Weight:</span>
+                    <span class="detail-value">{{ course.course_weight }}</span>
+                </div>
+            </div>
+
+            <div class="confirmation-actions">
+                <a href="{{ url_for('home') }}" class="btn btn-secondary">Return Home</a>
+                <a href="{{ url_for('registercourse') }}" class="btn btn-primary">Register Another Course</a>
+                <a href="{{ url_for('course_list') }}" class="btn btn-secondary">View All Courses</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

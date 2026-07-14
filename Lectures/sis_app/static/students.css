@@ -1,0 +1,241 @@
+/* =========================================================
+   STUDENTS LIST PAGE
+========================================================= */
+
+.students-list-page {
+    width: 100%;
+}
+
+.students-list-page h2 {
+    letter-spacing: .01em;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.list-header h2 {
+    font-size: 1.85rem;
+}
+
+.list-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ---------- Search ---------- */
+
+.search-form {
+    display: flex;
+    gap: .6rem;
+}
+
+.search-form input {
+    width: 240px;
+    padding: .75rem 1rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.search-form input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+/* ---------- Table ---------- */
+
+.table-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
+}
+
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.students-table thead {
+    background: var(--color-ink);
+    color: #fff;
+}
+
+.students-table th {
+    padding: .9rem 1.1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.students-table td {
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid var(--color-line);
+    font-size: .95rem;
+    vertical-align: top;
+}
+
+.students-table td:nth-child(1),
+.students-table td:nth-child(3) {
+    font-family: var(--font-mono);
+    color: var(--color-ink-soft);
+}
+
+.students-table tbody tr {
+    transition: background .15s ease;
+}
+
+.students-table tbody tr:hover {
+    background: var(--color-paper);
+}
+
+.students-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.row-actions {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.row-actions .btn {
+    white-space: nowrap;
+}
+
+.row-actions form {
+    display: inline;
+}
+
+/* ---------- Count ---------- */
+
+.student-count {
+    margin-top: 1.5rem;
+    text-align: right;
+    font-size: .9rem;
+    color: var(--color-muted);
+}
+
+.student-count strong {
+    font-family: var(--font-mono);
+    color: var(--color-ink);
+}
+
+/* ---------- Empty State ---------- */
+
+.empty-state {
+    background: var(--color-surface);
+    padding: 3.5rem 2rem;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--color-line);
+}
+
+.empty-state p {
+    color: var(--color-muted);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width:992px){
+
+    .list-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .list-actions{
+        width:100%;
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .search-form{
+        width:100%;
+    }
+
+    .search-form input{
+        width:100%;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .table-container{
+        overflow: visible;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .students-table,
+    .students-table thead,
+    .students-table tbody,
+    .students-table tr,
+    .students-table th,
+    .students-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .students-table thead {
+        display: none;
+    }
+
+    .students-table tr {
+        background: var(--color-surface);
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-card);
+        padding: .6rem .9rem;
+        margin-bottom: 1rem;
+    }
+
+    .students-table td {
+        border: none;
+        border-bottom: 1px solid var(--color-line);
+        padding: .75rem .25rem;
+        font-size: .92rem;
+    }
+
+    .students-table td:last-child {
+        border-bottom: none;
+        padding-bottom: .25rem;
+    }
+
+    .students-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: .72rem;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        color: var(--color-muted);
+        margin-bottom: .35rem;
+        font-weight: 600;
+    }
+
+    .row-actions {
+        gap: .45rem;
+    }
+
+    .row-actions .btn {
+        flex: 1;
+    }
+
+}

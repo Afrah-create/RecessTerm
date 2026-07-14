@@ -28,3 +28,24 @@ class Student(db.Model):
             'registration_date': self.registration_date.strftime('%Y-%m-%d %H:%M:%S'),
             'is_active': self.is_active
         }
+
+
+# Courses
+class Course(db.Model):
+    __tablename__ = 'courses'
+    id = db.Column(db.Integer, primary_key = True)
+    course_name = db.Column(db.String(100), nullable = False)
+    course_code = db.Column(db.String(50), unique = True, nullable = False)
+    course_weight = db.Column(db.Integer, nullable = True)
+    is_active = db.Column(db.Boolean, default = True)
+
+    def __repr__(self):
+        return f'<Course {self.course_weight} - {self.course_code}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'course_name': self.course_name,
+            'course_code': self.course_code,
+            'course_weight': self.course_weight
+        }

@@ -1,7 +1,7 @@
 # app.py - Main Application
 from flask import Flask, render_template, request, redirect, url_for, flash  # type: ignore
-from database import init_db, add_student, get_all_students, get_student_by_name
-from models import db, Student
+from database import init_db, add_student, get_all_students, get_student_by_name, add_course, get_all_courses, edit_course, delete_course
+from models import db, Student, Course
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'
@@ -12,7 +12,8 @@ init_db(app)
 @app.route('/')
 def home():
     total_students = Student.query.filter_by(is_active=True).count()
-    return render_template('home.html', total_students=total_students)
+    total_courses = Course.query.count()
+    return render_template('home.html', total_students=total_students, total_courses=total_courses)
 
 @app.route('/about')
 def about():
@@ -101,6 +102,86 @@ def delete_student(student_id):
     flash('Student deleted successfully!', 'success')
 
     return redirect(url_for('students_list'))
+
+
+
+
+# Add course
+@app.route('/registercourse', methods=['GET', 'POST'])
+def registercourse():
+    if request.method == 'POST':
+        course_data = {
+            'course_name': request.form.get('course_name', '').strip(),
+            'course_code': request.form.get('course_code', '').strip(),
+            'course_weight': request.form.get('course_weight', '').strip(),
+        }
+        
+        if not all(course_data.values()):
+            flash('All fields are required!', 'error')
+            return render_template('add_course.html', form_data=course_data)
+        
+        success, message, course = add_course(course_data)
+        
+        if success:
+            flash(message, 'success')
+            course_name = course.course_name if course is not None else course_data['course_name']
+            return redirect(url_for('course_profile', name=course_name))
+        else:
+            flash(message, 'error')
+            return render_template('add_course.html', form_data=course_data)
+    
+    return render_template('add_course.html', form_data=None)
+
+# Edit course
+@app.route('/course/edit/<int:course_id>', methods=['GET', 'POST'])
+def edit_course_route(course_id):
+    course = Course.query.get_or_404(course_id)
+
+    if request.method == 'POST':
+        course.course_name = request.form['course_name']
+        course.course_code = request.form['course_code']
+        course.course_weight = request.form['course_weight']
+
+        db.session.commit()
+
+        flash('Course updated successfully!', 'success')
+
+        return redirect(url_for('course_list'))
+
+    return render_template(
+        'edit_course.html',
+        course=course
+    )
+
+
+@app.route('/course_profile/<name>')
+def course_profile(name):
+    course = Course.query.filter_by(course_name=name).first()
+    if course:
+        return render_template('course_success.html', course=course)
+    else:
+        flash('Course not found!', 'error')
+        return redirect(url_for('registercourse'))
+    
+
+
+@app.route('/courses')
+def course_list():
+    courses = get_all_courses()
+   
+    return render_template('course_list.html', courses=courses)
+
+
+@app.route('/course/delete/<int:course_id>', methods=['POST'])
+def delete_course(course_id):
+    course = Course.query.get_or_404(course_id)
+
+    db.session.delete(course)
+    db.session.commit()
+
+    flash('Course deleted successfully!', 'success')
+
+    return redirect(url_for('course_list'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

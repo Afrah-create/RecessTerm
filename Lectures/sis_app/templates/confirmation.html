@@ -2,6 +2,10 @@
 
 {% block title %}Confirmation - Student Information System{% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='confirmation.css') }}">
+{% endblock %}
+
 {% block content %}
     <section class="confirmation-page">
         <h2>✅ Registration Confirmation</h2>

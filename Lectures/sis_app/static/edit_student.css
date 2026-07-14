@@ -1,0 +1,119 @@
+/* =========================================================
+   EDIT STUDENT PAGE
+========================================================= */
+
+.edit-student-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 180px);
+}
+
+.edit-student-card {
+    width: 100%;
+    max-width: 620px;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-line);
+    border-top: 4px solid var(--color-info);
+}
+
+.card-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-line);
+    padding-bottom: 1.25rem;
+}
+
+.card-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: .5rem;
+}
+
+.card-header p {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.6;
+    font-size: .95rem;
+}
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    margin-bottom: .55rem;
+    font-size: .9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: .85rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    transition: all .2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-info);
+    box-shadow: 0 0 0 3px var(--color-info-bg);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-line);
+}
+
+.form-actions .btn {
+    min-width: 150px;
+}
+
+@media (max-width: 768px) {
+
+    .edit-student-page {
+        padding: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .edit-student-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .card-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .edit-student-card {
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+    }
+}

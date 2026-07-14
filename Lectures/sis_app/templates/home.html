@@ -3,8 +3,7 @@
 {% block title %}Student Information System{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -13,27 +12,30 @@
 
     <div class="hero-left">
 
-        <span class="badge">
-            Student Management Platform
-        </span>
+        <span class="badge">For Academic Registrars</span>
 
         <h1>
-            Manage Student Records
-            <span>Smarter & Faster</span>
+            Every student record,
+            <span>one open ledger.</span>
         </h1>
 
         <p>
-            A modern platform for registering, organizing and managing
-            student information with speed, accuracy and simplicity.
+            Register students, manage course loads, and keep enrollment
+            data accurate — without the paper trail.
         </p>
 
         <div class="hero-buttons">
             <a href="{{ url_for('register') }}" class="btn btn-primary">
                 Register Student
             </a>
-
             <a href="{{ url_for('students_list') }}" class="btn btn-outline">
                 View Students
+            </a>
+            <a href="{{ url_for('registercourse') }}" class="btn btn-outline">
+                Add Course
+            </a>
+            <a href="{{ url_for('course_list') }}" class="btn btn-outline">
+                View Courses
             </a>
         </div>
 
@@ -43,13 +45,16 @@
 
         <div class="stats-card">
 
-            <div class="stat-icon">
-                <i class="fas fa-user-graduate"></i>
-            </div>
 
             <div>
-                <h2>{{ total_students }}</h2>
-                <p>Total Registered Students</p>
+                <div class="stat-row">
+                    <h2>{{ total_students }}</h2>
+                    <p>Total Registered Students</p>
+                </div>
+                <div class="stat-row">
+                    <h2>{{ total_courses }}</h2>
+                    <p>Total Registered Courses</p>
+                </div>
             </div>
 
         </div>
@@ -58,52 +63,30 @@
 
 </section>
 
-
-
 <section class="features">
 
     <div class="feature-card">
-
         <div class="feature-icon blue">
-            <i class="fas fa-user-plus"></i>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
         </div>
-
-        <h3>Easy Registration</h3>
-
-        <p>
-            Register students quickly through a clean and intuitive interface.
-        </p>
-
+        <h3>Register in under a minute</h3>
+        <p>Add a new student with the essentials name, registration number, email, and programme.</p>
     </div>
 
-
     <div class="feature-card">
-
         <div class="feature-icon green">
-            <i class="fas fa-address-book"></i>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
         </div>
-
-        <h3>Student Management</h3>
-
-        <p>
-            Maintain accurate student information and keep records organized.
-        </p>
-
+        <h3>One source of truth</h3>
+        <p>Every edit, correction, and enrollment update lives in a single record no duplicate spreadsheets.</p>
     </div>
 
-
     <div class="feature-card">
-
         <div class="feature-icon orange">
-            <i class="fas fa-search"></i>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
         </div>
-
-        <h3>Quick Search</h3>
-
-        <p>
-            Locate student records instantly using powerful search features.
-        </p>
-
+        <h3>Find anyone, instantly</h3>
+        <p>Search the full roll call by name and get to a record in seconds.</p>
     </div>
 
 </section>

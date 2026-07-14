@@ -1,32 +1,115 @@
 {% extends "base.html" %}
 
-{% block title %}About - Student Information System{% endblock %}
+{% block title %}Student Information System{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
 
 {% block content %}
-    <section class="about-page">
-        <h2>About the Student Information System</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>
-                    The Student Information System (SIS) is a web-based application built using the Flask framework.
-                    It provides a platform for managing student registration and information retrieval.
-                </p>
-                <h3>Key Features</h3>
-                <ul>
-                    <li><strong>Home Page:</strong> Landing page with navigation links.</li>
-                    <li><strong>About Page:</strong> Information about the application.</li>
-                    <li><strong>Registration Form:</strong> Collects student details using POST method.</li>
-                    <li><strong>Dynamic Routes:</strong> URL parameters for personalized pages.</li>
-                    <li><strong>Database Storage:</strong> SQLite for persistent data storage.</li>
-                </ul>
-                <h3>Technologies Used</h3>
-                <ul>
-                    <li><strong>Backend:</strong> Python with Flask framework</li>
-                    <li><strong>Frontend:</strong> HTML5, CSS3</li>
-                    <li><strong>Templating:</strong> Jinja2</li>
-                    <li><strong>Database:</strong> SQLite with SQLAlchemy ORM</li>
-                </ul>
-            </div>
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <span class="badge">For Academic Registrars</span>
+
+        <h1>
+            Every student record,
+            <span>one open ledger.</span>
+        </h1>
+
+        <p>
+            Register students, manage course loads, and keep enrollment
+            data accurate — without the paper trail.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">
+                Register Student
+            </a>
+            <a href="{{ url_for('students_list') }}" class="btn btn-outline">
+                View Students
+            </a>
         </div>
-    </section>
+
+        <div class="hero-links">
+            <a href="{{ url_for('registercourse') }}">
+                Add a course
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+            <a href="{{ url_for('course_list') }}">
+                Browse all courses
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <div class="stats-card">
+
+            <div class="stats-eyebrow">At a Glance</div>
+
+            <div class="stat-row">
+                <div class="stat-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>
+                </div>
+                <div>
+                    <h2>{{ total_students }}</h2>
+                    <p>Total Registered Students</p>
+                </div>
+            </div>
+
+            <div class="stat-row">
+                <div class="stat-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+                </div>
+                <div>
+                    <h2>{{ total_courses }}</h2>
+                    <p>Total Registered Courses</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <div class="section-intro">
+        <span class="section-eyebrow">What You Can Do</span>
+        <h2>Built for the registrar's daily work</h2>
+        <p>Three things every SIS needs to get right, done well.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+        </div>
+        <h3>Register in under a minute</h3>
+        <p>Add a new student with the essentials — name, registration number, email, and programme.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+        </div>
+        <h3>One source of truth</h3>
+        <p>Every edit, correction, and enrollment update lives in a single record — no duplicate spreadsheets.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon orange">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <h3>Find anyone, instantly</h3>
+        <p>Search the full roll call by name and get to a record in seconds.</p>
+    </div>
+
+</section>
+
 {% endblock %}

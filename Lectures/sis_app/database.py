@@ -1,6 +1,6 @@
 # database.py - Database Operations
 from flask_sqlalchemy import SQLAlchemy  # pyright: ignore[reportMissingImports]
-from models import db, Student
+from models import db, Student, Course
 
 def init_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
@@ -130,6 +130,65 @@ def permanent_delete_student(student_id):
             db.session.rollback()
             return False, f"Database error: {str(e)}"
     
+    except Exception as e:
+        db.session.rollback()
+        return False, f"Database error: {str(e)}"
+    
+
+def add_course(course_data):
+    try:
+        existing_courses = Course.query.filter_by(course_code = course_data['course_code']).first()
+        if existing_courses:
+            return False, "Course Code already Exists", None
+        new_course = Course(
+            course_name = course_data['course_name'],
+            course_code = course_data['course_code'],
+            course_weight = course_data['course_weight']
+        )
+
+        db.session.add(new_course)
+        db.session.commit()
+
+        return True, 'Course added successfully', new_course
+    except Exception as e:
+        db.session.rollback()
+        return False, str(e), None
+    
+def get_all_courses():
+    return Course.query.all()
+
+def edit_course(course_id, updated_data):
+    try:
+        course = Course.query.get(course_id)
+        if not course:
+            return False, "Course not found!"
+        
+        if 'course_name' in updated_data:
+            course.course_name = updated_data['course_name']
+        if 'course_code' in updated_data:
+            existing = Course.query.filter_by(course_code=updated_data['course_code']).first()
+            if existing and existing.id != course_id:
+                return False, "Course code already exists!"
+            course.course_code = updated_data['course_code']
+        if 'course_weight' in updated_data:
+            course.course_weight = updated_data['course_weight']
+        
+        db.session.commit()
+        return True, "Course updated successfully!"
+    
+    except Exception as e:
+        db.session.rollback()
+        return False, f"Database error: {str(e)}"
+    
+
+def delete_course(course_id):
+    try:
+        course = Course.query.get(course_id)
+        if not course:
+            return False, "Course not found!"
+        db.session.delete(course)
+        db.session.commit()
+        return True, "Course successfully Deleted!"
     except Exception as e:
         db.session.rollback()
         return False, f"Database error: {str(e)}"

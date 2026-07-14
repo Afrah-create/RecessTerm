@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Add Course - Student Information System{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="register-page">
+        <h2>Add Course Form</h2>
+        <div class="form-container">
+            <form method="POST" action="{{ url_for('registercourse') }}" class="registration-form">
+                <div class="form-group">
+                    <label for="course_name">Course Name *</label>
+                    <input type="text" id="course_name" name="course_name" 
+                           placeholder="Enter course name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="course_code">Course Code *</label>
+                    <input type="text" id="course_code" name="course_code" 
+                           placeholder="e.g., BSSE2207" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="course_weight">Weight *</label>
+                    <input type="number" id="course_weight" name="course_weight" 
+                           placeholder="Should be above 5" required>
+                </div>
+
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Course</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,166 @@
+/* ===============================
+   Edit Course Page
+================================== */
+
+.edit-course-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 180px);
+}
+
+.edit-course-card {
+    width: 100%;
+    max-width: 650px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eef2f7;
+}
+
+/* ===============================
+   Heading
+================================== */
+
+.edit-course-card h2 {
+    color: #1e293b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+}
+
+.edit-course-card p {
+    color: #64748b;
+    margin-bottom: 2rem;
+    font-size: .95rem;
+}
+
+/* ===============================
+   Form
+================================== */
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: .55rem;
+    font-size: .95rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: .9rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+    background: #ffffff;
+    transition: all .25s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+}
+
+/* ===============================
+   Buttons
+================================== */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #edf2f7;
+}
+
+.form-actions .btn {
+    min-width: 150px;
+    padding: .85rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all .25s ease;
+}
+
+.form-actions .btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.form-actions .btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
+/* ===============================
+   Responsive
+================================== */
+
+@media (max-width: 768px) {
+
+    .edit-course-page {
+        padding: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .edit-course-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .edit-course-card h2 {
+        font-size: 1.6rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .edit-course-card {
+        padding: 1.5rem;
+        border-radius: 14px;
+    }
+
+    .edit-course-card h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-group input {
+        padding: .8rem;
+    }
+}
+
+
+.card-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eef2f7;
+    padding-bottom: 1.25rem;
+}
+
+.card-header h2 {
+    margin-bottom: .5rem;
+}
+
+.card-header p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}

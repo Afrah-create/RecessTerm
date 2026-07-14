@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block title %}All Students - Student Information System{% endblock %}
-
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='students.css') }}">
+{% endblock %}
 {% block content %}
     <section class="students-list-page">
         <div class="list-header">
-            <h2>📋 Registered Students</h2>
+            <h2>Registered Students</h2>
             <div class="list-actions">
                 <a href="{{ url_for('register') }}" class="btn btn-primary">+ Register New</a>
                 <form action="{{ url_for('search_students') }}" method="GET" class="search-form">
@@ -32,31 +34,29 @@
                     <tbody>
                         {% for student in students %}
                             <tr>
-                                <td>{{ loop.index }}</td>
-                                <td><strong>{{ student.student_name }}</strong></td>
-                                <td>{{ student.registration_number }}</td>
-                                <td>{{ student.email }}</td>
-                                <td>{{ student.programme }}</td>
-                                <td>{{ student.registration_date.strftime('%Y-%m-%d') }}</td>
-                                <td>
-                                    <a href="{{ url_for('student_profile', name=student.student_name) }}" 
-                                       class="btn btn-small btn-info">View</a>
-                                </td>
-                                <td>
-                                    <a href="{{ url_for('edit_student', student_id=student.id) }}" 
-                                       class="btn btn-small btn-warning">Edit</a>
-                                </td>
-                                <td>
-                                    <form method="POST" action="{{ url_for('delete_student', student_id=student.id) }}" onsubmit="return confirm('Are you sure you want to delete this student?');">
-                                        <button type="submit" class="btn btn-small btn-danger">Delete</button>
-                                    </form>
+                                <td data-label="#">{{ loop.index }}</td>
+                                <td data-label="Student Name"><strong>{{ student.student_name }}</strong></td>
+                                <td data-label="Registration Number">{{ student.registration_number }}</td>
+                                <td data-label="Email">{{ student.email }}</td>
+                                <td data-label="Programme">{{ student.programme }}</td>
+                                <td data-label="Date">{{ student.registration_date.strftime('%Y-%m-%d') }}</td>
+                                <td data-label="Action">
+                                    <div class="row-actions">
+                                        <a href="{{ url_for('student_profile', name=student.student_name) }}"
+                                           class="btn btn-small btn-info">View</a>
+                                        <a href="{{ url_for('edit_student', student_id=student.id) }}"
+                                           class="btn btn-small btn-warning">Edit</a>
+                                        <form method="POST" action="{{ url_for('delete_student', student_id=student.id) }}" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                            <button type="submit" class="btn btn-small btn-danger">Delete</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="student-count">
                 <p>Total students: <strong>{{ students|length }}</strong></p>
             </div>
