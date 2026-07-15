@@ -1,6 +1,6 @@
 # database.py - Database Operations
 from flask_sqlalchemy import SQLAlchemy  # pyright: ignore[reportMissingImports]
-from models import Enrollment, db, Student, Course
+from models import Enrollment, db, Student, Course, Department
 
 def init_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
@@ -218,3 +218,26 @@ def enroll_student_in_course(student_id, course_id):
 
 def get_enrollments():
     return Enrollment.query.all()
+
+
+
+def add_dept(dept_data):
+    try:
+        existing_depts = Department.query.all()
+        if existing_depts:
+            return False, "Department already exists"
+        new_dept = Department(
+            dept_name = dept_data['dept_name'],
+            dept_code = dept_data['dept_code']
+
+        )
+
+        db.session.add(new_dept)
+        db.session.commit()
+        return True, "Department added successfully"
+    except Exception as e:
+        db.session.rollback()
+        return False, str(e), None
+    
+def get_dept_list():
+    return Department.query.all()

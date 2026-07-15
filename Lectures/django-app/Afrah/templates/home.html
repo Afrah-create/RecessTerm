@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afrah - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        nav.navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.85rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #111827 !important;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #4b5563 !important;
+            letter-spacing: 0.5px;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #111827 !important;
+        }
+
+        /* Main Content Grid */
+        .container-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .content-wrapper {
+            max-width: 480px;
+            width: 100%;
+        }
+
+        /* Header section is now unified, clean typography */
+        .header-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header-section h1 {
+            font-size: 2rem;
+            color: #111827;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-section p {
+            font-size: 0.95rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        /* Compact Form Section */
+        .form-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 2rem;
+            background-color: #ffffff;
+        }
+
+        .form-section h2 {
+            font-size: 1.15rem;
+            color: #111827;
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        /* Tightened form elements */
+        .form-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #374151;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+        /* Custom inputs for Django rendered fields */
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.9rem;
+            color: #111827;
+            transition: border-color 0.15s ease-in-out;
+            background-color: #ffffff;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus, 
+        .form-group select:focus {
+            border-color: #111827;
+            outline: none;
+            box-shadow: none;
+        }
+
+        /* Clean Error Handling */
+        .alert-danger {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            font-size: 0.8rem;
+            padding: 0.5rem;
+            margin-top: 0.35rem;
+            border-radius: 4px;
+        }
+
+        /* Solid Minimalist Button */
+        .btn-submit {
+            background-color: #111827;
+            border: 1px solid #111827;
+            color: #ffffff;
+            padding: 0.65rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #1f2937;
+            border-color: #1f2937;
+            color: #ffffff;
+        }
+
+        .btn-submit:active {
+            background-color: #111827;
+        }
+
+        /* Minimal Footer */
+        footer {
+            border-top: 1px solid #e5e7eb;
+            background-color: #ffffff;
+            color: #6b7280;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        footer p {
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsiveness adjustments */
+        @media (max-width: 576px) {
+            .container-main {
+                padding: 2rem 1rem;
+            }
+
+            .form-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-4">
+            <span class="navbar-brand">Afrah</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-main">
+        <div class="content-wrapper">
+            <!-- Header -->
+            <div class="header-section">
+                <h1>Welcome to Afrah</h1>
+                <p>Your Gateway to Excellence</p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-section">
+                <h2>Get In Touch</h2>
+                <form method="POST" action="{% url 'home' %}">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="form-group">
+                            <!-- Let label match the styling rules -->
+                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="alert alert-danger">
+                                    {{ field.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Afrah. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

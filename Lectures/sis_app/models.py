@@ -72,3 +72,20 @@ class Enrollment(db.Model):
             'course_id': self.course_id,
             'enrollment_date': self.enrollment_date.strftime('%Y-%m-%d %H:%M:%S')
         }
+    
+class Department(db.Model):
+    __tablename__ = 'departments'
+    id = db.Column(db.Integer, primary_key=True)
+    dept_name = db.Column(db.String(50), nullable=False)
+    dept_code = db.Column(db.String(50), nullable = False)
+
+    def __repr__(self):
+        return f'<Department Id: {self.dept_code}, Department Name: {self.dept_name}'
+    
+    def to_dict(self):
+        return {
+            'id' : self.id,
+            'dept_name' : self.dept_name,
+            'dept_code' : self.dept_code
+
+        }

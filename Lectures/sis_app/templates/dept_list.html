@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}All Derptments - Student Information System{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='course_list.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="students-list-page">
+         <div class="list-header">
+            <h2>Registered Departments</h2>
+            <div class="list-actions">
+                <a href="{{ url_for('adddept') }}" class="btn btn-primary">+ Register New</a>
+                <form action="{{ url_for('search_students') }}" method="GET" class="search-form">
+                    <input type="text" name="q" placeholder="Search by name..." value="{{ search_term if search_term else '' }}">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </form>
+            </div>
+        </div>
+
+        {% if departments %}
+            <div class="table-container">
+                <table class="students-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>department Name</th>
+                            <th>department Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for department in departments %}
+                            <tr>
+                                <td data-label="#">{{ loop.index }}</td>
+                                <td data-label="department Name"><strong>{{ department.dept_name }}</strong></td>
+                                <td data-label="department Code"><span class="department-code">{{ department.dept_code }}</span></td>
+                               
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="student-count">
+                <p>Total departments: <strong>{{ departments|length }}</strong></p>
+            </div>
+        {% else %}
+            
+        {% endif %}
+    </section>
+{% endblock %}

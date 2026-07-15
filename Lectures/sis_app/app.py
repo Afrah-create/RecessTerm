@@ -1,7 +1,7 @@
 # app.py - Main Application
 from flask import Flask, render_template, request, redirect, url_for, flash  # type: ignore
-from database import enroll_student_in_course, init_db, add_student, get_all_students, get_student_by_name, add_course, get_all_courses, edit_course, delete_course, enroll_student_in_course, get_enrollments
-from models import Enrollment, db, Student, Course
+from database import enroll_student_in_course, init_db, add_student, get_all_students, get_student_by_name, add_course, get_all_courses, edit_course, delete_course, enroll_student_in_course, get_enrollments, get_dept_list, add_dept
+from models import Enrollment, db, Student, Course, Department
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'
@@ -13,7 +13,8 @@ init_db(app)
 def home():
     total_students = Student.query.filter_by(is_active=True).count()
     total_courses = Course.query.count()
-    return render_template('home.html', total_students=total_students, total_courses=total_courses)
+    total_dept = Department.query.count()
+    return render_template('home.html', total_students=total_students, total_courses=total_courses, dept_count = total_dept)
 
 @app.route('/about')
 def about():
@@ -209,5 +210,33 @@ def enroll_student():
 def enrollments_list():
     enrollments = Enrollment.query.all()
     return render_template('enrollments_list.html', enrollments=enrollments)
+
+
+# Department routes
+@app.route('/departments')
+def dept_list():
+    departments = Department.query.all()
+    return render_template('dept_list.html', departments = departments)
+
+
+@app.route('/adddept', methods=['GET', 'POST'])
+def adddept():
+    if request.method == 'POST':
+        dept_data = {
+            'dept_name': request.form.get('dept_name', '').strip(),
+            'dept_code': request.form.get('dept_code', '').strip(),
+        }
+        
+        if not all(dept_data.values()):
+            flash('All fields are required!', 'error')
+            return render_template('add_dept.html', form_data=dept_data)
+        
+        add_dept(dept_data)
+      
+    return render_template('add_dept.html', form_data=None)
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
