@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Assessment Result</h1>
+        <div class="result-card {{ result.risk_level }}">
+            <h2>{{ result.prediction }}</h2>
+            <p>Probability of Delinquency: <strong>{{ result.probability }}</strong></p>
+        </div>
+        <a href="/">← Assess Another Applicant</a>
+    </div>
+</body>
+</html>
