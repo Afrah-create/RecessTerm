@@ -6,7 +6,9 @@
 </head>
 <body>
     <div class="container">
+        <div class="logout-link">Logged in as {{ current_user.username }} — <a href="/logout">Log out</a></div>
         <h1>Credit Risk Assessment</h1>
+        <p style="text-align:right;"><a href="/dashboard">View Dashboard →</a></p>
         <form action="/predict" method="post">
             <label>Age</label>
             <input type="number" name="age" required>
