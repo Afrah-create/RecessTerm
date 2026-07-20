@@ -891,3 +891,82 @@ a:hover{
 }
 
 }
+
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+.dashboard-table{
+
+    width:100%;
+
+    border-collapse:separate;
+
+    border-spacing:0;
+
+    margin-top:20px;
+
+    font-size:14px;
+
+    overflow:hidden;
+
+    border-radius:14px;
+
+}
+
+.dashboard-table thead{
+
+    background:#4C72B0;
+
+    color:#fff;
+
+}
+
+.dashboard-table th{
+
+    padding:16px 18px;
+
+    font-weight:600;
+
+    text-align:left;
+
+}
+
+.dashboard-table td{
+
+    padding:16px 18px;
+
+    border-bottom:1px solid #edf2f7;
+
+    vertical-align:middle;
+
+}
+
+.dashboard-table tbody tr{
+
+    transition:.25s;
+
+}
+
+.dashboard-table tbody tr:nth-child(even){
+
+    background:#fafbfd;
+
+}
+
+.dashboard-table tbody tr:hover{
+
+    background:#eef5ff;
+
+    transform:scale(1.003);
+
+}
