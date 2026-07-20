@@ -9,6 +9,7 @@ app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model = joblib.load(os.path.join(BASE_DIR, "model", "random_forest_model.pkl"))
 feature_columns = joblib.load(os.path.join(BASE_DIR, "model", "feature_columns.pkl"))
+debt_ratio_median = joblib.load(os.path.join(BASE_DIR, "model", "debt_ratio_median.pkl"))
 
 
 def build_features(form):
@@ -25,6 +26,7 @@ def build_features(form):
     debt_ratio_flag = 1 if debt_ratio > 10 else 0
     debt_ratio_log = np.log1p(debt_ratio)
     has_any_late_payment = 1 if total_past_due > 0 else 0
+    high_debt_ratio = 1 if debt_ratio > debt_ratio_median else 0
 
     # Age group one-hot (must match training exactly)
     age_groups = {
@@ -55,7 +57,7 @@ def build_features(form):
         "DebtRatio_log": debt_ratio_log,
         "TotalPastDue": total_past_due,
         "IncomePerDependent": income_per_dependent,
-        "HighDebtRatio": debt_ratio_flag,  # or recompute vs median if you saved it
+        "HighDebtRatio": high_debt_ratio,
         "HasAnyLatePayment": has_any_late_payment,
         **age_groups
     }
