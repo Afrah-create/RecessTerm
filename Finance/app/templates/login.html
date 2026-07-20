@@ -1,31 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login — Credit Risk Scoring</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container" style="max-width: 380px; margin-top: 80px;">
-        <h1 style="text-align:center;">Credit Risk Scoring</h1>
-        <p style="text-align:center; color:#777; margin-bottom: 25px;">Sign in to continue</p>
+{% extends "base.html" %}
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash-message">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+{% block title %}Login — Credit Risk Scoring{% endblock %}
 
-        <form action="/login" method="post">
-            <label>Email</label>
-            <input type="email" name="email" required autofocus>
+{% block content %}
+<div class="container" style="max-width: 380px; margin-top: 80px;">
+    <h1 style="text-align:center;">Credit Risk Scoring</h1>
+    <p style="text-align:center; color:#777; margin-bottom: 25px;">Sign in to continue</p>
 
-            <label>Password</label>
-            <input type="password" name="password" required>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-            <button type="submit">Log In</button>
-        </form>
-    </div>
-</body>
-</html>
+    <form action="/login" method="post">
+        <label>Email</label>
+        <input type="email" name="email" required autofocus>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Log In</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Credit Risk Scoring{% endblock %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <header class="topbar">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>Credit Risk Scoring System</span>
+            </div>
+
+            {% if session.get('user') %}
+            <a href="{{ url_for('logout') }}" class="logout-link">
+                <i class="fas fa-right-from-bracket"></i>
+                Logout
+            </a>
+            {% endif %}
+        </header>
+
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+
+    </div>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

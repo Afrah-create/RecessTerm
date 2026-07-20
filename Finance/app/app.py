@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
 import joblib
 import pandas as pd
 import numpy as np
@@ -106,8 +106,7 @@ def login():
 
         if user and user.check_password(password):
             login_user(user)
-            next_page = request.args.get("next")
-            return redirect(next_page or url_for("home"))
+            return redirect(url_for("dashboard"))
         else:
             flash("Invalid email or password", "error")
 
@@ -124,7 +123,7 @@ def logout():
 @app.route("/", methods=["GET"])
 @login_required
 def home():
-    return render_template("index.html")
+    return render_template("assessment_form.html")
 
 
 @app.route("/predict", methods=["POST"])
@@ -151,12 +150,22 @@ def predict():
     db.session.add(record)
     db.session.commit()
 
-    result = {
+    # Store assessment in session to follow Post/Redirect/Get pattern safely
+    session["last_result"] = {
         "prediction": "High Risk (Likely Delinquent)" if prediction == 1 else "Low Risk",
         "probability": f"{probability:.2%}",
         "risk_level": risk_level
     }
-    return render_template("result.html", result=result)
+    return redirect(url_for("result"))
+
+
+@app.route("/result", methods=["GET"])
+@login_required
+def result():
+    result_data = session.get("last_result")
+    if not result_data:
+        return redirect(url_for("home"))
+    return render_template("result.html", result=result_data)
 
 
 @app.route("/dashboard")

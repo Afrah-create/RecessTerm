@@ -1,82 +1,354 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Prediction Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-</head>
-<body>
-    <div class="container" style="max-width: 900px;">
-        <div class="logout-link">Logged in as {{ current_user.username }} — <a href="/logout">Log out</a></div>
-        <h1>Prediction History Dashboard</h1>
-        <p>Total predictions logged: <strong>{{ records|length }}</strong></p>
+{% extends "base.html" %}
+{% block title %}Prediction Dashboard — Credit Risk Scoring{% endblock %}
 
-        <canvas id="riskChart" height="100"></canvas>
-        <canvas id="probHistChart" height="100" style="margin-top: 30px;"></canvas>
+{% block styles %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+{% endblock %}
 
-        <h2 style="margin-top: 30px;">Recent Predictions</h2>
-        <table style="width:100%; border-collapse: collapse; font-size: 13px;">
-            <tr style="background:#f2f2f2;">
-                <th style="padding:6px; text-align:left;">Time</th>
-                <th style="padding:6px;">Age</th>
-                <th style="padding:6px;">Income</th>
-                <th style="padding:6px;">DebtRatio</th>
-                <th style="padding:6px;">Probability</th>
-                <th style="padding:6px;">Risk</th>
-            </tr>
-            {% for r in records[:20] %}
-            <tr>
-                <td style="padding:6px;">{{ r.created_at[:19] }}</td>
-                <td style="padding:6px;">{{ r.age }}</td>
-                <td style="padding:6px;">{{ r.monthly_income }}</td>
-                <td style="padding:6px;">{{ r.debt_ratio }}</td>
-                <td style="padding:6px;">{{ "%.1f"|format(r.probability * 100) }}%</td>
-                <td style="padding:6px;">{{ r.risk_level }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+{% block content %}
 
-        <a href="/" style="display:block; margin-top:20px;">← Back to Assessment Form</a>
+<div class="container dashboard-container">
+
+    <div class="dashboard-header">
+
+        <div class="dashboard-title">
+            <h1>
+                <i class="fa-solid fa-chart-column"></i>
+                Prediction Dashboard
+            </h1>
+
+            <p>Monitor and review all credit risk prediction records.</p>
+        </div>
+
+        <div class="dashboard-actions">
+
+            <div class="user-info">
+                <i class="fa-solid fa-user"></i>
+                {{ current_user.username }}
+            </div>
+
+            <a href="/logout" class="btn btn-outline">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
+
     </div>
 
-    <script>
-        const records = {{ records | tojson }};
+    <div class="stats-badge">
+        <i class="fa-solid fa-database"></i>
+        Total Predictions:
+        <strong>{{ records|length }}</strong>
+    </div>
 
-        const riskCounts = { low: 0, high: 0 };
-        records.forEach(r => riskCounts[r.risk_level]++);
+    <!-- Charts -->
 
-        new Chart(document.getElementById('riskChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Low Risk', 'High Risk'],
-                datasets: [{
-                    label: 'Number of Predictions',
-                    data: [riskCounts.low, riskCounts.high],
-                    backgroundColor: ['#55A868', '#C44E52']
-                }]
+    <div class="charts-grid">
+
+        <div class="chart-card">
+
+            <h3>Risk Level Distribution</h3>
+
+            <div class="chart-wrapper">
+                <canvas id="riskChart"></canvas>
+            </div>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h3>Predicted Probability Distribution</h3>
+
+            <div class="chart-wrapper">
+                <canvas id="probHistChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Prediction Table -->
+
+    <div class="dashboard-card">
+
+        <h2>
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Recent Predictions
+        </h2>
+
+        <table class="dashboard-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Time</th>
+
+                    <th>Age</th>
+
+                    <th>Income</th>
+
+                    <th>Debt Ratio</th>
+
+                    <th>Probability</th>
+
+                    <th>Risk Level</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for r in records[:20] %}
+
+                <tr>
+
+                    <td>{{ r.created_at[:19] }}</td>
+
+                    <td>{{ r.age }}</td>
+
+                    <td>{{ "{:,.0f}".format(r.monthly_income) }}</td>
+
+                    <td>{{ "%.2f"|format(r.debt_ratio) }}</td>
+
+                    <td>{{ "%.1f"|format(r.probability * 100) }}%</td>
+
+                    <td>
+
+                        {% if r.risk_level == "low" %}
+
+                        <span class="badge badge-low">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Low Risk
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge badge-high">
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                            High Risk
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div style="margin-top:30px;text-align:center;">
+
+        <a href="/" class="btn btn-primary">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Assessment
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+const records = {{ records | tojson }};
+
+// =======================
+// Risk Distribution Chart
+// =======================
+
+const riskCounts = {
+    low: 0,
+    high: 0
+};
+
+records.forEach(r => {
+    if (r.risk_level === "low")
+        riskCounts.low++;
+    else
+        riskCounts.high++;
+});
+
+new Chart(document.getElementById("riskChart"), {
+
+    type: "bar",
+
+    data: {
+
+        labels: ["Low Risk", "High Risk"],
+
+        datasets: [{
+
+            label: "Number of Predictions",
+
+            data: [
+
+                riskCounts.low,
+
+                riskCounts.high
+
+            ],
+
+            backgroundColor: [
+
+                "#10b981",
+
+                "#ef4444"
+
+            ],
+
+            borderRadius:8
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        maintainAspectRatio:false,
+
+        plugins:{
+
+            legend:{
+                display:false
             },
-            options: { plugins: { title: { display: true, text: 'Risk Level Distribution' } } }
-        });
 
-        const probabilities = records.map(r => r.probability);
-        const bins = Array(10).fill(0);
-        probabilities.forEach(p => {
-            const idx = Math.min(Math.floor(p * 10), 9);
-            bins[idx]++;
-        });
+            title:{
+                display:false
+            }
 
-        new Chart(document.getElementById('probHistChart'), {
-            type: 'bar',
-            data: {
-                labels: ['0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%'],
-                datasets: [{
-                    label: 'Number of Predictions',
-                    data: bins,
-                    backgroundColor: '#4C72B0'
-                }]
+        },
+
+        scales:{
+
+            y:{
+                beginAtZero:true,
+                ticks:{
+                    precision:0
+                }
+            }
+
+        }
+
+    }
+
+});
+
+// =======================
+// Probability Histogram
+// =======================
+
+const probabilities = records.map(r => r.probability);
+
+const bins = Array(10).fill(0);
+
+probabilities.forEach(p => {
+
+    const idx = Math.min(Math.floor(p * 10),9);
+
+    bins[idx]++;
+
+});
+
+new Chart(document.getElementById("probHistChart"),{
+
+    type:"bar",
+
+    data:{
+
+        labels:[
+
+            "0-10%",
+
+            "10-20%",
+
+            "20-30%",
+
+            "30-40%",
+
+            "40-50%",
+
+            "50-60%",
+
+            "60-70%",
+
+            "70-80%",
+
+            "80-90%",
+
+            "90-100%"
+
+        ],
+
+        datasets:[{
+
+            label:"Predictions",
+
+            data:bins,
+
+            backgroundColor:"#4C72B0",
+
+            borderRadius:8
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        maintainAspectRatio:false,
+
+        plugins:{
+
+            legend:{
+                display:false
             },
-            options: { plugins: { title: { display: true, text: 'Predicted Probability Distribution' } } }
-        });
-    </script>
-</body>
-</html>
+
+            title:{
+                display:false
+            }
+
+        },
+
+        scales:{
+
+            y:{
+                beginAtZero:true,
+                ticks:{
+                    precision:0
+                }
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

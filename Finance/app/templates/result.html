@@ -1,17 +1,96 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Prediction Result</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Assessment Result</h1>
-        <div class="result-card {{ result.risk_level }}">
-            <h2>{{ result.prediction }}</h2>
-            <p>Probability of Delinquency: <strong>{{ result.probability }}</strong></p>
+{% extends "base.html" %}
+
+{% block title %}Assessment Result — Credit Risk Scoring{% endblock %}
+
+{% block content %}
+
+<div class="container dashboard-container">
+
+    <!-- Header -->
+
+    <div class="dashboard-header">
+
+        <div class="dashboard-title">
+
+            <h1>
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                Assessment Result
+            </h1>
+
+            <p>
+                Credit risk prediction generated successfully.
+            </p>
+
         </div>
-        <a href="/">← Assess Another Applicant</a>
+
+        <div class="dashboard-actions">
+
+            <a href="/dashboard" class="btn btn-outline">
+                <i class="fa-solid fa-chart-column"></i>
+                Dashboard
+            </a>
+
+            <a href="/" class="btn btn-outline">
+                <i class="fa-solid fa-plus"></i>
+                New Assessment
+            </a>
+
+        </div>
+
     </div>
-</body>
-</html>
+
+    <!-- Result Card -->
+
+    <div class="dashboard-card result-summary">
+
+        {% if result.risk_level == "low" %}
+
+        <div class="result-icon success">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <span class="badge badge-low">
+            Low Credit Risk
+        </span>
+
+        {% else %}
+
+        <div class="result-icon danger">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <span class="badge badge-high">
+            High Credit Risk
+        </span>
+
+        {% endif %}
+
+        <h2>{{ result.prediction }}</h2>
+
+        <p class="result-text">
+
+            The estimated probability of delinquency is
+
+            <strong>{{ result.probability }}</strong>
+
+        </p>
+
+        <div class="result-actions">
+
+            <a href="/" class="btn btn-primary">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+                Assess Another Applicant
+            </a>
+
+            <a href="/dashboard" class="btn btn-outline">
+                <i class="fa-solid fa-chart-line"></i>
+                View Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Credit Risk Assessment{% endblock %}
+
+{% block content %}
+
+<div class="container dashboard-container">
+
+    <!-- Header -->
+
+    <div class="dashboard-header">
+
+        <div class="dashboard-title">
+
+            <h1>
+                <i class="fa-solid fa-shield-halved"></i>
+                Credit Risk Assessment
+            </h1>
+
+            <p>
+                Enter applicant information to predict the likelihood of credit default.
+            </p>
+
+        </div>
+
+        <div class="dashboard-actions">
+
+            <div class="user-info">
+                <i class="fa-solid fa-user"></i>
+                {{ current_user.username }}
+            </div>
+
+            <a href="/dashboard" class="btn btn-outline">
+                <i class="fa-solid fa-chart-column"></i>
+                Dashboard
+            </a>
+
+            <a href="/logout" class="btn btn-outline">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Form Card -->
+
+    <div class="dashboard-card">
+
+        <form action="/predict" method="post">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" name="age" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Monthly Income</label>
+                    <input type="number" step="0.01" name="monthly_income" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Number of Dependents</label>
+                    <input type="number" name="dependents" value="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Debt Ratio</label>
+                    <input type="number" step="0.0001" name="debt_ratio" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Times 30–59 Days Past Due</label>
+                    <input type="number" name="late_30_59" value="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Times 60–89 Days Past Due</label>
+                    <input type="number" name="late_60_89" value="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Times 90+ Days Late</label>
+                    <input type="number" name="late_90" value="0" required>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    Assess Credit Risk
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
