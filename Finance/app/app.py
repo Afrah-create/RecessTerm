@@ -97,16 +97,16 @@ def build_features(form):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form["username"]
+        email = request.form["email"].strip()
         password = request.form["password"]
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=email).first()
 
         if user and user.check_password(password):
             login_user(user)
             next_page = request.args.get("next")
             return redirect(next_page or url_for("home"))
         else:
-            flash("Invalid username or password", "error")
+            flash("Invalid email or password", "error")
 
     return render_template("login.html")
 
